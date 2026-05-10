@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bibliothèque numérique des 7 tomes anciens en PDF." />
+  <meta name="keywords" content="livres anciens, bibliothèque numérique, PDF, théologie, bible" />
+  <meta name="author" content="Votre Nom" />
+
+  <title>La Bible Crampon — Édition Originale 1894–1904</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #f4efe2;
+    --card: #fffdf8;
+    --primary: #4e342e;
+    --secondary: #8d6e63;
+    --gold: #c9a227;
+    --text: #2b2b2b;
+    --shadow: rgba(0,0,0,0.15);
+  }
+
+  body {
+    font-family: Georgia, serif;
+    background: linear-gradient(to bottom, #f7f1e3, #efe5cf);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* =========================
+     HEADER PREMIUM
+  ========================= */
+
+  header {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(20,14,10,0.82), rgba(20,14,10,0.88)),
+      url('images/parchment-bg.jpg') center/cover;
+    color: white;
+    padding: 110px 20px 90px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+    margin: auto;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.82rem;
+    color: #d7c08a;
+    margin-bottom: 18px;
+    opacity: 0.95;
+  }
+
+  header h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: normal;
+    line-height: 1.1;
+    margin-bottom: 22px;
+    letter-spacing: 1px;
+  }
+
+  .hero-divider {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      #c9a227,
+      transparent
+    );
+    margin: 0 auto 28px;
+  }
+
+  .hero-description {
+    font-size: 1.18rem;
+    line-height: 2;
+    color: rgba(255,255,255,0.92);
+    max-width: 860px;
+    margin: auto;
+  }
+
+  /* =========================
+     CONTAINER
+  ========================= */
+
+  .container {
+    width: min(1300px, 95%);
+    margin: auto;
+    padding: 50px 0;
+  }
+
+  /* =========================
+     SEARCH
+  ========================= */
+
+  .search-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .search-box input {
+    width: min(600px, 100%);
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: 2px solid #d7c8a1;
+    font-size: 1rem;
+    outline: none;
+    background: #fffef9;
+  }
+
+  .search-box input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(201,162,39,0.4);
+  }
+
+  /* =========================
+     BOOK GRID
+  ========================= */
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+  }
+
+  .book-card {
+    background: var(--card);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px var(--shadow);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 35px rgba(0,0,0,0.22);
+  }
+
+  .cover-wrapper {
+    height: 420px;
+    overflow: hidden;
+    background: #ddd;
+  }
+
+  .cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .book-card:hover img {
+    transform: scale(1.04);
+  }
+
+  .book-content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-content h2 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+
+  .book-content p {
+    flex: 1;
+    margin-bottom: 18px;
+    color: #555;
+  }
+
+  /* =========================
+     BUTTONS
+  ========================= */
+
+  .buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+  }
+
+  .btn-read {
+    background: var(--primary);
+    color: white;
+  }
+
+  .btn-read:hover {
+    background: #3d2822;
+  }
+
+  .btn-download {
+    background: var(--gold);
+    color: black;
+  }
+
+  .btn-download:hover {
+    opacity: 0.9;
+  }
+
+  /* =========================
+     PDF VIEWER
+  ========================= */
+
+  .viewer-section {
+    margin-top: 70px;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: none;
+  }
+
+  .viewer-header {
+    background: var(--primary);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .viewer-header h3 {
+    font-size: 1.4rem;
+  }
+
+  .close-btn {
+    background: var(--gold);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  iframe {
+    width: 100%;
+    height: 900px;
+    border: none;
+  }
+
+  /* =========================
+     FOOTER
+  ========================= */
+
+  footer {
+    margin-top: 80px;
+    background: #2d1b14;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  footer p {
+    opacity: 0.8;
+  }
+
+  /* =========================
+     RESPONSIVE
+  ========================= */
+
+  @media (max-width: 768px) {
+
+    header {
+      padding: 80px 18px 70px;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .cover-wrapper {
+      height: 340px;
+    }
+
+    iframe {
+      height: 600px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="eyebrow">
+      Édition originale · 1894–1904
+    </p>
+
+    <h1>La Bible Crampon</h1>
+    <h2>Le Texte Intégral. Aux Sources.</h2>
+    <div class="hero-divider"></div>
+
+    <p class="hero-description">
+      Publiée en 7 tomes, la première édition de la Bible Crampon demeure
+      l’un des plus grands monuments de l’érudition catholique française :
+      traduction sur les textes originaux, Vulgate latine en regard,
+      introductions magistrales et appareil critique d’une richesse exceptionnelle.
+    </p>
+  </div>
+</header>
+
+  <main class="container">
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Rechercher un tome...">
+    </div>
+    <section class="books-grid" id="booksGrid">
+
+      <!-- TOME 1 -->
+      <article class="book-card" data-title="tome 1 ancien testament">
+        <div class="cover-wrapper">
+          <img src="covers/tome1.jpg" alt="Tome 1">
+        </div>
+
+        <div class="book-content">
+          <h2>Tome 1</h2>
+
+          <p>
+            Pentateuque.
+          </p>
+
+          <div class="buttons">
+            <a href="#viewer" class="btn btn-read" onclick="openViewer('https://github.com/epsummessi/bible-crampon/releases/download/livres/tome1.pdf', 'Tome 1 - Pentateuque.')">
+              Lire
+            </a>
+
+            <a href="https://github.com/epsummessi/bible-crampon/releases/download/livres/tome1.pdf" download class="btn btn-download">
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TOME 2 -->
+      <article class="book-card" data-title="tome 2">
+        <div class="cover-wrapper">
+          <img src="covers/tome2.jpg" alt="Tome 2">
+        </div>
+
+        <div class="book-content">
+          <h2>Tome 2</h2>
+
+          <p>
+            Livres historiques.
+          </p>
+
+          <div class="buttons">
+            <a href="#viewer" class="btn btn-read" onclick="openViewer('https://github.com/epsummessi/bible-crampon/releases/download/livres/tome2.pdf', 'Tome 2 - Livres historiques.')">
+              Lire
+            </a>
+
+            <a href="https://github.com/epsummessi/bible-crampon/releases/download/livres/tome2.pdf" download class="btn btn-download">
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TOME 3 -->
+      <article class="book-card" data-title="tome 3">
+        <div class="cover-wrapper">
+          <img src="covers/tome3.jpg" alt="Tome 3">
+        </div>
+
+        <div class="book-content">
+          <h2>Tome 3</h2>
+
+          <p>
+            Livres poétiques et sapientiaux.
+          </p>
+
+          <div class="buttons">
+            <a href="#viewer" class="btn btn-read" onclick="openViewer('https://github.com/epsummessi/bible-crampon/releases/download/livres/tome3.pdf', 'Tome 3 - Livres poétiques et sapientiaux.')">
+              Lire
+            </a>
+
+            <a href="https://github.com/epsummessi/bible-crampon/releases/download/livres/tome3.pdf" download class="btn btn-download">
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TOME 4 -->
+      <article class="book-card" data-title="tome 4">
+        <div class="cover-wrapper">
+          <img src="covers/tome4.jpg" alt="Tome 4">
+        </div>
+
+        <div class="book-content">
+          <h2>Tome 4</h2>
+
+          <p>
+            Les prophètes majeurs.
+          </p>
+
+          <div class="buttons">
+            <a href="#viewer" class="btn btn-read" onclick="openViewer('https://github.com/epsummessi/bible-crampon/releases/download/livres/tome4.pdf', 'Tome 4 - Les prophètes majeurs.')">
+              Lire
+            </a>
+
+            <a href="https://github.com/epsummessi/bible-crampon/releases/download/livres/tome4.pdf" download class="btn btn-download">
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TOME 5 -->
+      <article class="book-card" data-title="tome 5">
+        <div class="cover-wrapper">
+          <img src="covers/tome5.jpg" alt="Tome 5">
+        </div>
+
+        <div class="book-content">
+          <h2>Tome 5</h2>
+
+          <p>
+            Les prophètes mineurs.
+          </p>
+
+          <div class="buttons">
+            <a href="#viewer" class="btn btn-read" onclick="openViewer('https://github.com/epsummessi/bible-crampon/releases/download/livres/tome5.pdf', 'Tome 5 - Les prophètes mineurs.')">
+              Lire
+            </a>
+
+            <a href="https://github.com/epsummessi/bible-crampon/releases/download/livres/tome5.pdf" download class="btn btn-download">
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TOME 6 -->
+      <article class="book-card" data-title="tome 6">
+        <div class="cover-wrapper">
+          <img src="covers/tome6.jpg" alt="Tome 6">
+        </div>
+
+        <div class="book-content">
+          <h2>Tome 6</h2>
+
+          <p>
+            Première partie du Nouveau Testament.
+          </p>
+
+          <div class="buttons">
+            <a href="#viewer" class="btn btn-read" onclick="openViewer('https://github.com/epsummessi/bible-crampon/releases/download/livres/tome6.pdf', 'Tome 6 - Première partie du Nouveau Testament.')">
+              Lire
+            </a>
+
+            <a href="https://github.com/epsummessi/bible-crampon/releases/download/livres/tome6.pdf" download class="btn btn-download">
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- TOME 7 -->
+      <article class="book-card" data-title="tome 7">
+        <div class="cover-wrapper">
+          <img src="covers/tome7.jpg" alt="Tome 7">
+        </div>
+
+        <div class="book-content">
+          <h2>Tome 7</h2>
+
+          <p>
+            Deuxième partie du Nouveau Testament.
+          </p>
+
+          <div class="buttons">
+            <a href="#viewer" class="btn btn-read" onclick="openViewer('https://github.com/epsummessi/bible-crampon/releases/download/livres/tome7.pdf', 'Tome 7 - Deuxième partie du Nouveau Testament.')">
+              Lire
+            </a>
+
+            <a href="https://github.com/epsummessi/bible-crampon/releases/download/livres/tome7.pdf" download class="btn btn-download">
+              Télécharger
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- LECTEUR PDF -->
+    <section class="viewer-section" id="viewer">
+      <div class="viewer-header">
+        <h3 id="viewerTitle">Lecture PDF</h3>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button class="close-btn" onclick="zoomOut()">−</button>
+          <button class="close-btn" onclick="zoomIn()">+</button>
+          <button class="close-btn" onclick="prevPage()">◀</button>
+          <span id="pageInfo">Page 1</span>
+          <button class="close-btn" onclick="nextPage()">▶</button>
+          <button class="close-btn" onclick="closeViewer()">Fermer</button>
+        </div>
+      </div>
+
+      <div style="padding:20px; background:#f7f1e3;">
+        <input
+          type="text"
+          id="textSearch"
+          placeholder="Recherche texte dans le document..."
+          style="width:100%; padding:14px; border-radius:10px; border:1px solid #ccc; margin-bottom:15px;"
+        >
+
+        <div style="width:100%; background:#ddd; border-radius:999px; overflow:hidden; margin-bottom:20px;">
+          <div id="loadingBar" style="height:10px; width:0%; background:#c9a227;"></div>
+        </div>
+
+        <div id="thumbnailContainer" style="display:flex; gap:10px; overflow:auto; margin-bottom:20px;"></div>
+
+        <canvas id="pdfCanvas" style="width:100%; border-radius:12px; background:white;"></canvas>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      Les Saintes Écritures aux sources originelles — Bibliothèque numérique des 7 tomes de la Bible Crampon.
+    </p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs" type="module"></script>
+
+  <script type="module">
+
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs';
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.js';
+
+    let pdfDoc = null;
+    let currentPage = 1;
+    let scale = 1.4;
+    let currentPdfUrl = '';
+
+    const canvas = document.getElementById('pdfCanvas');
+    const ctx = canvas.getContext('2d');
+    const pageInfo = document.getElementById('pageInfo');
+    const loadingBar = document.getElementById('loadingBar');
+    const thumbnailContainer = document.getElementById('thumbnailContainer');
+
+    // =========================
+    // OUVERTURE PDF
+    // =========================
+
+    window.openViewer = async function(pdfPath, title) {
+      document.getElementById('viewer').style.display = 'block';
+      document.getElementById('viewerTitle').textContent = title;
+
+      currentPdfUrl = pdfPath;
+
+      loadingBar.style.width = '5%';
+
+      const loadingTask = pdfjsLib.getDocument({
+        url: pdfPath,
+        rangeChunkSize: 65536,
+        disableStream: false,
+        disableAutoFetch: false
+      });
+
+      loadingTask.onProgress = function(progressData) {
+        const percent = (progressData.loaded / progressData.total) * 100;
+        loadingBar.style.width = percent + '%';
+      };
+
+      pdfDoc = await loadingTask.promise;
+
+      loadingBar.style.width = '100%';
+
+      currentPage = 1;
+      renderPage(currentPage);
+      generateThumbnails();
+
+      window.scrollTo({
+        top: document.getElementById('viewer').offsetTop - 20,
+        behavior: 'smooth'
+      });
+    }
+
+    // =========================
+    // RENDER PAGE
+    // =========================
+
+    async function renderPage(num) {
+      const page = await pdfDoc.getPage(num);
+
+      const viewport = page.getViewport({ scale });
+
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      const renderContext = {
+        canvasContext: ctx,
+        viewport
+      };
+
+      await page.render(renderContext).promise;
+
+      pageInfo.textContent = `Page ${num} / ${pdfDoc.numPages}`;
+    }
+
+    // =========================
+    // PAGINATION
+    // =========================
+
+    window.nextPage = function() {
+      if(currentPage >= pdfDoc.numPages) return;
+      currentPage++;
+      renderPage(currentPage);
+    }
+
+    window.prevPage = function() {
+      if(currentPage <= 1) return;
+      currentPage--;
+      renderPage(currentPage);
+    }
+
+    // =========================
+    // ZOOM
+    // =========================
+
+    window.zoomIn = function() {
+      scale += 0.2;
+      renderPage(currentPage);
+    }
+
+    window.zoomOut = function() {
+      if(scale <= 0.6) return;
+      scale -= 0.2;
+      renderPage(currentPage);
+    }
+
+    // =========================
+    // FERMETURE
+    // =========================
+
+    window.closeViewer = function() {
+      document.getElementById('viewer').style.display = 'none';
+      canvas.width = 0;
+      canvas.height = 0;
+      thumbnailContainer.innerHTML = '';
+      loadingBar.style.width = '0%';
+    }
+
+    // =========================
+    // MINIATURES
+    // =========================
+
+    async function generateThumbnails() {
+      thumbnailContainer.innerHTML = '';
+
+      const total = Math.min(pdfDoc.numPages, 10);
+
+      for(let i = 1; i <= total; i++) {
+        const page = await pdfDoc.getPage(i);
+
+        const viewport = page.getViewport({ scale: 0.25 });
+
+        const thumbCanvas = document.createElement('canvas');
+        const thumbCtx = thumbCanvas.getContext('2d');
+
+        thumbCanvas.width = viewport.width;
+        thumbCanvas.height = viewport.height;
+        thumbCanvas.style.cursor = 'pointer';
+        thumbCanvas.style.borderRadius = '8px';
+        thumbCanvas.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+
+        await page.render({
+          canvasContext: thumbCtx,
+          viewport
+        }).promise;
+
+        thumbCanvas.addEventListener('click', () => {
+          currentPage = i;
+          renderPage(i);
+        });
+
+        thumbnailContainer.appendChild(thumbCanvas);
+      }
+    }
+
+    // =========================
+    // RECHERCHE TEXTE
+    // =========================
+
+    document.getElementById('textSearch').addEventListener('keydown', async function(e) {
+      if(e.key !== 'Enter') return;
+
+      const searchText = this.value.toLowerCase();
+
+      if(!searchText) return;
+
+      for(let i = 1; i <= pdfDoc.numPages; i++) {
+        const page = await pdfDoc.getPage(i);
+        const textContent = await page.getTextContent();
+
+        const text = textContent.items
+          .map(item => item.str)
+          .join(' ')
+          .toLowerCase();
+
+        if(text.includes(searchText)) {
+          currentPage = i;
+          renderPage(i);
+          alert(`Texte trouvé à la page ${i}`);
+          return;
+        }
+      }
+
+      alert('Texte non trouvé.');
+    });
+
+    // =========================
+    // RECHERCHE TOMES
+    // =========================
+
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.book-card');
+
+    searchInput.addEventListener('keyup', function() {
+      const value = this.value.toLowerCase();
+
+      cards.forEach(card => {
+        const title = card.dataset.title.toLowerCase();
+
+        if(title.includes(value)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+
+  </script>
+
+</body>
+</html>
